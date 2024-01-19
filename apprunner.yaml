@@ -9,8 +9,7 @@ build:
       - unzip terraform_1.6.6_linux_amd64.zip  
       - mv terraform /usr/local/bin/terraform
       - npm install --save
-run:
-  runtime-version: 12.21.0                              
+run:                             
   command: node app.js
   network:
     port: 3000
