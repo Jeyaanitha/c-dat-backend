@@ -16,11 +16,6 @@ app.use("/api/v1",aws_router)
 
 const azure_router = require("./router/azureRouter")
 app.use("/api/v1",azure_router)
-// app.js
-process.env.PATH = process.env.PATH + ':/usr/local/bin';
-// app.js
- console.log('PATH:', process.env.PATH);
-
 
 const port = 3000
 //server port 
