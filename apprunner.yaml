@@ -1,15 +1,44 @@
-version: 1.0
-runtime: nodejs18
-build:
-  commands:
-    build:
-      - apt-get update
-      - apt-get install -y unzip
-      - wget https://releases.hashicorp.com/terraform/1.6.6/terraform_1.6.6_linux_amd64.zip
-      - unzip terraform_1.6.6_linux_amd64.zip  
-      - mv terraform /usr/local/bin/terraform
-      - npm install --save
-run:                             
-  command: node app.js
-  network:
-    port: 3000
+# Use an image that supports APT-based commands for the pre-build stage
+FROM ubuntu:20.04 AS pre-build-stage
+
+# Your existing commands
+COPY . /app
+WORKDIR /app
+RUN apt-get update && apt-get install -y unzip
+RUN wget https://releases.hashicorp.com/terraform/1.6.6/terraform_1.6.6_linux_amd64.zip
+RUN unzip terraform_1.6.6_linux_amd64.zip
+RUN mv terraform /usr/local/bin/terraform
+
+# Your main build stage
+FROM 477742282928.dkr.ecr.ap-south-1.amazonaws.com/awsfusionruntime-nodejs18-build:uuid-nodejs18-20240109-003704-10
+
+# Copy only necessary files from the pre-build stage
+COPY --from=pre-build-stage /app/package.json /app/
+COPY --from=pre-build-stage /app/package-lock.json /app/
+COPY --from=pre-build-stage /app/node_modules /app/node_modules
+COPY --from=pre-build-stage /app /app
+
+WORKDIR /app
+
+RUN npm install --save
+
+
+# Continue with the rest of your Dockerfile
+# ...
+
+# Example: RUN npm install --save
+
+# version: 1.0
+# runtime: nodejs18
+# build:
+#   commands:
+#     build:
+#       - apt-get update
+#       - apt-get install -y unzip
+#       - wget https://releases.hashicorp.com/terraform/1.6.6/terraform_1.6.6_linux_amd64.zip
+#       - unzip terraform_1.6.6_linux_amd64.zip  
+#       - npm install --save
+# run:                             
+#   command: node app.js
+#   network:
+#     port: 3000
