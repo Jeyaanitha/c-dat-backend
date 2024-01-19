@@ -4,10 +4,7 @@ runtime: nodejs18
 build:
   commands:
     build:
-      - wget https://releases.hashicorp.com/terraform/1.6.6/terraform_1.6.6_linux_amd64.zip
-      - unzip terraform_1.6.6_linux_amd64.zip
-      - mv terraform /usr/local/bin/terraform
-      - export PATH=$PATH:/usr/local/bin/terraform
+      - apt-get install -y terraform
       - npm install --save
 
 run:  
@@ -15,7 +12,9 @@ run:
   network:
     port: 3000
 
-
+      # - wget https://releases.hashicorp.com/terraform/1.6.6/terraform_1.6.6_linux_amd64.zip
+      # - unzip terraform_1.6.6_linux_amd64.zip
+      # - mv terraform /usr/local/bin/terraform
 # version: 1.0
 # runtime: nodejs18
 # build:

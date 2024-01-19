@@ -30,10 +30,3 @@ app.listen(port,()=>{
 
 
 
-exec('/usr/local/bin/terraform --version', (error, stdout, stderr) => {
-    console.log('Terraform version:', stdout);
-    if (error) {
-      console.error(`Error executing Terraform: ${error}`);
-    }
-  });
-
