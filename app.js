@@ -8,7 +8,7 @@ app.use(bodyParser.urlencoded({ extended: false }))
 
 // parse application/json
 app.use(bodyParser.json())
-
+app.get("/", (req, res) => res.send("Hello World"));
 
 const aws_router = require("./router/awsRouter")
 app.use("/api/v1",aws_router)
