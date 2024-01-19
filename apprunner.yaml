@@ -14,7 +14,7 @@ build:
       - npm install --save
 
 run:
-  runtime-version: 18.x  # Use a supported Node.js version
+  runtime-version: 18.19.0  # Use a supported Node.js version
   command: node app.js
   network:
     port: 3000
